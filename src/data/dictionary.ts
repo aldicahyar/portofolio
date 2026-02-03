@@ -8,9 +8,9 @@ export const dictionary = {
       contact: "Contact",
     },
     hero: {
-      role: "",
+      role: "Backend Developer",
       greeting: "Hello, World.",
-      description: "",
+      description: "Building scalable and robust server-side applications.",
       status: {
         available: "Available for Project",
         busy: "Currently Busy",
@@ -86,9 +86,9 @@ export const dictionary = {
       contact: "Kontak",
     },
     hero: {
-      role: "",
+      role: "Backend Developer",
       greeting: "Halo, Dunia.",
-      description: "",
+      description: "Membangun aplikasi server-side yang skalabel dan tangguh.",
       status: {
         available: "Siap Bekerja",
         busy: "Sedang Sibuk",

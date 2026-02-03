@@ -175,7 +175,7 @@ export function Sidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 flex flex-col gap-2 p-4 mt-4">
+        <nav className="flex-1 flex flex-col gap-2 p-4 mt-4 relative overflow-y-auto overflow-x-hidden scrollbar-none">
           {navLinks.map((link, index) => {
             const Icon = link.icon;
             const isActive = activeSection === link.href.replace("#", "");
@@ -276,7 +276,7 @@ export function Sidebar() {
           </div>
 
           {/* Action Buttons */}
-          <div className="space-y-2">
+          <div className="space-y-2 relative">
             {/* CTA Button - Border only */}
             <motion.a
               href="#projects"
@@ -286,6 +286,7 @@ export function Sidebar() {
                 boxShadow: "0 0 20px rgba(255, 107, 0, 0.3)",
               }}
               whileTap={{ scale: 0.98 }}
+              initial={{ gap: 0 }}
               animate={{ 
                 paddingLeft: isExpanded ? 16 : 12,
                 paddingRight: isExpanded ? 16 : 12,
@@ -321,6 +322,7 @@ export function Sidebar() {
                 boxShadow: "0 0 20px rgba(255, 107, 0, 0.3)",
               }}
               whileTap={{ scale: 0.98 }}
+              initial={{ gap: 0 }}
               animate={{ 
                 paddingLeft: isExpanded ? 16 : 12,
                 paddingRight: isExpanded ? 16 : 12,

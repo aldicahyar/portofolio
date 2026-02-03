@@ -5,18 +5,19 @@ import { motion } from "motion/react";
 import { Mail, MapPin, Send, Terminal, Github, Linkedin, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { sendContactEmail } from "@/app/actions/contact";
 import { useLanguage } from "@/context/language-context";
+import { SITE_CONFIG } from "@/lib/constants";
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "aldicahyaramadhan1@gmail.com",
-    href: "mailto:aldicahyaramadhan1@gmail.com",
+    value: SITE_CONFIG.email,
+    href: `mailto:${SITE_CONFIG.email}`,
   },
   {
     icon: MapPin,
     label: "Location",
-    value: "Indonesia",
+    value: SITE_CONFIG.location,
     href: null,
   },
 ];
@@ -25,13 +26,13 @@ const socialLinks = [
   {
     icon: Github,
     label: "GitHub",
-    href: "https://github.com/aldicahyar",
-    username: "@aldicahyar",
+    href: SITE_CONFIG.links.github,
+    username: SITE_CONFIG.twitterHandle,
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
-    href: "https://linkedin.com/in/aldicahyar",
+    href: SITE_CONFIG.links.linkedin,
     username: "/in/aldicahyar",
   },
 ];

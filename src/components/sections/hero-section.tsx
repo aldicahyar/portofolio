@@ -83,13 +83,10 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mb-8"
           >
-            <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl md:text-4xl font-semibold text-[var(--cyber-light)] mb-4">
-              {t("hero.role")}
-            </h2>
             <div className="flex items-center justify-center gap-2 font-mono text-lg md:text-xl text-[var(--cyber-muted)]">
               <span className="text-[var(--cyber-orange)]">{"<"}</span>
               <EncryptedText
-                text={{ en: "Backend Developer", id: "Backend Developer" }}
+                text={t("hero.role")}
                 encryptedClassName="text-neutral-500"
                 revealedClassName="dark:text-white text-black"
                 revealDelayMs={30}

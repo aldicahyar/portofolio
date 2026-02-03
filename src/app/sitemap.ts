@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next";
+import { SITE_CONFIG } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://aldicahyar.dev";
+  const baseUrl = SITE_CONFIG.url;
   const currentDate = new Date();
 
   return [

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
-import { ExternalLink, Github, Folder, Server, Code2, Layers, Truck, Building2, Lock } from "lucide-react";
+import { ExternalLink, Github, Code2, Layers, Truck, Building2, Lock } from "lucide-react";
 import { useState } from "react";
 import { Project, ProjectCategory, projects, projectCategories } from "@/data/projects";
 import { useLanguage } from "@/context/language-context";
@@ -10,7 +10,7 @@ import { ProjectModal } from "@/components/ui/project-modal";
 const viewportConfig = { once: false, amount: 0.2 };
 
 function StatusBadge({ status }: { status: Project["status"] }) {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   
   const colors = {
     "Live": "bg-green-500/10 text-green-400 border-green-500/20",
@@ -19,14 +19,6 @@ function StatusBadge({ status }: { status: Project["status"] }) {
     "Prototype": "bg-purple-500/10 text-purple-400 border-purple-500/20",
   };
 
-  const statusMap = {
-    "Live": t("projects.status.live"),
-    "In Development": t("projects.status.development"),
-    "Completed": t("projects.status.archived"), // Using archived for completed or mapped similarly
-    "Prototype": "PROTOTYPE" // Or add to dictionary if needed
-  };
-  
-  // Mapping status to dictionary keys dynamically or using simple map
   const displayStatus = status === "Live" ? t("projects.status.live") :
                         status === "In Development" ? t("projects.status.development") :
                         status === "Completed" ? t("projects.status.archived") : status;
@@ -39,8 +31,8 @@ function StatusBadge({ status }: { status: Project["status"] }) {
   );
 }
 
-function ProjectCard({ project, index, onClick }: { project: Project; index: number; onClick: () => void }) {
-  const { language, t } = useLanguage();
+function ProjectCard({ project, onClick }: { project: Project; index: number; onClick: () => void }) {
+  const { language } = useLanguage();
 
   return (
     <motion.div

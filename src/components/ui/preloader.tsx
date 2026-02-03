@@ -24,6 +24,7 @@ export function Preloader({ showOnce = true }: PreloaderProps) {
   const { t } = useLanguage();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     
     // Only check sessionStorage if showOnce is enabled

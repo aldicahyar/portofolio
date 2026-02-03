@@ -27,6 +27,7 @@ export function Sidebar() {
 
   // Detect touch device and screen size
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     const checkDevice = () => {
       setIsTouchDevice(

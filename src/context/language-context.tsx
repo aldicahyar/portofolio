@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 type Language = "en" | "id";
 
@@ -25,6 +25,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const savedLang = localStorage.getItem("acr-language") as Language;
     if (savedLang && (savedLang === "en" || savedLang === "id")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLanguage(savedLang);
     }
     setIsLoaded(true);
@@ -52,6 +53,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const t = (path: string): string => {
     const keys = path.split(".");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let current: any = dictionary[language];
 
     for (const key of keys) {

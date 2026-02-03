@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Code2, Database, Server, Terminal, Coffee, Zap } from "lucide-react";
 import { useLanguage } from "@/context/language-context";
+import { SITE_CONFIG } from "@/lib/constants";
 
 const stats = [
   { value: "3+", label: "Years Experience" },
@@ -86,19 +87,19 @@ export function AboutSection() {
                   <p>
                     <span className="text-purple-400">name</span>
                     <span className="text-[var(--cyber-muted)]">:</span>{" "}
-                    <span className="text-green-400">{'"Aldi Cahya Ramadhan"'}</span>
+                    <span className="text-green-400">{`"${SITE_CONFIG.name}"`}</span>
                     <span className="text-[var(--cyber-muted)]">,</span>
                   </p>
                   <p>
                     <span className="text-purple-400">role</span>
                     <span className="text-[var(--cyber-muted)]">:</span>{" "}
-                    <span className="text-green-400">{`"${t("Backend Developer")}"`}</span>
+                    <span className="text-green-400">{`"${t("hero.role")}"`}</span>
                     <span className="text-[var(--cyber-muted)]">,</span>
                   </p>
                   <p>
                     <span className="text-purple-400">location</span>
                     <span className="text-[var(--cyber-muted)]">:</span>{" "}
-                    <span className="text-green-400">{'"Indonesia"'}</span>
+                    <span className="text-green-400">{`"${SITE_CONFIG.location}"`}</span>
                     <span className="text-[var(--cyber-muted)]">,</span>
                   </p>
                   <p>

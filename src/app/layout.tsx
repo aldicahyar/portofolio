@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Quantico, Inconsolata } from "next/font/google";
+import { SITE_CONFIG } from "@/lib/constants";
 import "./globals.css";
 import { JsonLd } from "@/components/utils/json-ld";
 
@@ -17,25 +18,25 @@ const inconsolata = Inconsolata({
 });
 
 export const metadata: Metadata = {
-  title: "Aldi Cahya Ramadhan | Backend Developer",
-  description: "Backend Developer specializing in NestJS, ExpressJS, Node.js & Java. Building scalable and robust server-side applications.",
-  keywords: ["Backend Developer", "NestJS", "ExpressJS", "Node.js", "Java", "API Development", "Indonesia", "Aldi Cahya Ramadhan"],
-  authors: [{ name: "Aldi Cahya Ramadhan" }],
-  creator: "Aldi Cahya Ramadhan",
-  metadataBase: new URL("https://aldicahyar.dev"),
+  title: `${SITE_CONFIG.name} | ${SITE_CONFIG.role}`,
+  description: SITE_CONFIG.description,
+  keywords: SITE_CONFIG.keywords,
+  authors: [{ name: SITE_CONFIG.name }],
+  creator: SITE_CONFIG.creator,
+  metadataBase: new URL(SITE_CONFIG.url),
   openGraph: {
-    title: "Aldi Cahya Ramadhan | Backend Developer",
-    description: "Backend Developer specializing in NestJS, ExpressJS, Node.js & Java. Building scalable and robust server-side applications.",
-    url: "https://aldicahyar.dev",
-    siteName: "Aldi Cahya Ramadhan",
+    title: `${SITE_CONFIG.name} | ${SITE_CONFIG.role}`,
+    description: SITE_CONFIG.description,
+    url: SITE_CONFIG.url,
+    siteName: SITE_CONFIG.name,
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aldi Cahya Ramadhan | Backend Developer",
-    description: "Backend Developer specializing in NestJS, ExpressJS, Node.js & Java",
-    creator: "@aldicahyar",
+    title: `${SITE_CONFIG.name} | ${SITE_CONFIG.role}`,
+    description: SITE_CONFIG.description,
+    creator: SITE_CONFIG.twitterHandle,
   },
   robots: {
     index: true,

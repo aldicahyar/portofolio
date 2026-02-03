@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 
 interface Particle {
   id: number;
@@ -16,6 +16,7 @@ export function CyberGrid() {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     // Generate particles only on client
     const newParticles = [...Array(20)].map((_, i) => ({

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
-import { X, ExternalLink, Github, Building2, Truck, Lock, Layers, Code2, Calendar, Tag } from "lucide-react";
+import { X, ExternalLink, Github, Building2, Truck, Lock, Layers, Code2, Tag } from "lucide-react";
 import { Project } from "@/data/projects";
 import { useLanguage } from "@/context/language-context";
 import { useEffect, useCallback } from "react";
@@ -139,7 +139,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                 {project.highlights && project.highlights.length > 0 && (
                   <div className="pt-4 border-t border-[var(--cyber-orange)]/10">
                     <h3 className="font-mono text-xs text-[var(--cyber-orange)] mb-3">
-                      // {t("projects.highlights")}
+                      {`// ${t("projects.highlights")}`}
                     </h3>
                     <ul className="space-y-2 text-sm text-[var(--cyber-muted)]">
                       {project.highlights.map((highlight, idx) => (

@@ -42,7 +42,6 @@ const viewportConfig = { once: false, amount: 0.2 };
 
 export function ContactSection() {
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
-  const [errorMessage, setErrorMessage] = useState<string>("");
   const [terminalLines, setTerminalLines] = useState<string[]>([
     "$ init contact_form",
     "> Ready to receive your message...",
@@ -66,7 +65,6 @@ export function ContactSection() {
     addTerminalLine(`$ send --from "${name}"`);
     addTerminalLine("> Validating input...");
     setFormStatus("loading");
-    setErrorMessage("");
 
     await new Promise((resolve) => setTimeout(resolve, 500));
     addTerminalLine("> Encrypting message...");
@@ -94,7 +92,6 @@ export function ContactSection() {
     } else {
       addTerminalLine(`> Error: ${result.message}`);
       setFormStatus("error");
-      setErrorMessage(result.message);
       
       // Reset to idle after error
       setTimeout(() => {

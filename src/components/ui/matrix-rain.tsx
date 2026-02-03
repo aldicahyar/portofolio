@@ -18,6 +18,7 @@ export function MatrixRain() {
   const chars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789";
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     // Generate columns only on client
     const newColumns = [...Array(columnCount)].map((_, i) => ({

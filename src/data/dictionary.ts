@@ -1,0 +1,158 @@
+export const dictionary = {
+  en: {
+    nav: {
+      home: "Home",
+      about: "About",
+      experience: "Experience",
+      projects: "Projects",
+      contact: "Contact",
+    },
+    hero: {
+      role: "",
+      greeting: "Hello, World.",
+      description: "",
+      status: {
+        available: "Available for Project",
+        busy: "Currently Busy",
+      },
+      actions: {
+        projects: "View Projects",
+        contact: "Contact Me",
+      },
+    },
+    about: {
+      title: "About Me",
+      description: "I am a dedicated Backend Developer with a passion for building high-performance systems. My expertise lies in designing microservices architectures and optimizing database interactions.",
+      skills: "Tech Stack",
+    },
+    experience: {
+      title: "Experience",
+      present: "Present",
+      view_details: "View Details",
+    },
+    projects: {
+      title: "Featured Projects",
+      subtitle: "Selected works from my portfolio",
+      view_code: "View Code",
+      view_project: "View Project",
+      status: {
+        live: "Live System",
+        development: "In Development",
+        archived: "Archived",
+      },
+      filter: {
+        all: "All",
+        government: "Government",
+        logistics: "Logistics",
+      },
+      description: "Description",
+      techStack: "Tech Stack",
+      highlights: "Key Highlights",
+      viewSource: "View Source",
+      liveDemo: "Live Demo",
+      privateProject: "Private / Internal Project",
+    },
+    contact: {
+      title: "Initialize Connection",
+      subtitle: "",
+      form: {
+        name: "Name",
+        email: "Email",
+        message: "Message",
+        submit: "Transmit Message",
+        sending: "Transmitting...",
+      },
+      success: "Message Transmitted Successfully",
+      error: "Transmission Failed",
+    },
+    footer: {
+      quick_links: "Quick Links",
+      connect: "Connect",
+      built_with: "Built with",
+      rights: "All rights reserved.",
+    },
+    common: {
+      download_resume: "Download Resume",
+      loading: "System Booting...",
+      language: "Language",
+    },
+  },
+  id: {
+    nav: {
+      home: "Beranda",
+      about: "Tentang",
+      experience: "Pengalaman",
+      projects: "Proyek",
+      contact: "Kontak",
+    },
+    hero: {
+      role: "",
+      greeting: "Halo, Dunia.",
+      description: "",
+      status: {
+        available: "Siap Bekerja",
+        busy: "Sedang Sibuk",
+      },
+      actions: {
+        projects: "Lihat Proyek",
+        contact: "Hubungi Saya",
+      },
+    },
+    about: {
+      title: "Tentang Saya",
+      description: "Saya adalah Backend Developer yang berdedikasi dengan hasrat membangun sistem berkinerja tinggi. Keahlian saya terletak pada perancangan arsitektur microservices dan optimalisasi interaksi database.",
+      skills: "Keahlian Teknis",
+    },
+    experience: {
+      title: "Experience",
+      present: "Sekarang",
+      view_details: "Lihat Detail",
+    },
+    projects: {
+      title: "Proyek Unggulan",
+      subtitle: "Karya terpilih dari portofolio saya",
+      view_code: "Lihat Kode",
+      view_project: "Lihat Proyek",
+      status: {
+        live: "Sistem Aktif",
+        development: "Dalam Pengembangan",
+        archived: "Diarsipkan",
+      },
+      filter: {
+        all: "Semua",
+        government: "Pemerintahan",
+        logistics: "Logistik",
+      },
+      description: "Deskripsi",
+      techStack: "Teknologi",
+      highlights: "Poin Utama",
+      viewSource: "Lihat Kode",
+      liveDemo: "Demo Langsung",
+      privateProject: "Proyek Privat / Internal",
+    },
+    contact: {
+      title: "Mulai Koneksi",
+      subtitle: "",
+      form: {
+        name: "Nama",
+        email: "Email",
+        message: "Pesan",
+        submit: "Kirim Pesan",
+        sending: "Mengirim...",
+      },
+      success: "Pesan Berhasil Terkirim",
+      error: "Pengiriman Gagal",
+    },
+    footer: {
+      quick_links: "Tautan Cepat",
+      connect: "Terhubung",
+      built_with: "Dibuat dengan",
+      rights: "Hak cipta dilindungi.",
+    },
+    common: {
+      download_resume: "Unduh CV",
+      loading: "Memuat Sistem...",
+      language: "Bahasa",
+    },
+  },
+};

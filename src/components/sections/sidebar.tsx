@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Home, User, FolderKanban, Mail, Menu, X, Terminal, Github, Linkedin, Download, Briefcase } from "lucide-react";
 
 const navLinks = [
@@ -21,6 +21,47 @@ const socialLinks = [
 export function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Detect touch device and screen size
+  useEffect(() => {
+    setMounted(true);
+    const checkDevice = () => {
+      setIsTouchDevice(
+        'ontouchstart' in window || 
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia('(pointer: coarse)').matches
+      );
+      setIsDesktop(window.innerWidth >= 1280);
+    };
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
+
+  // Handle click outside to close on mobile/tablet
+  const handleClickOutside = useCallback((e: MouseEvent | TouchEvent) => {
+    const sidebar = document.getElementById('sidebar-main');
+    const toggle = document.getElementById('sidebar-toggle');
+    if (sidebar && !sidebar.contains(e.target as Node) && 
+        toggle && !toggle.contains(e.target as Node)) {
+      setIsExpanded(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Attach click outside handler when not on desktop and sidebar is expanded
+    if (!isDesktop && isExpanded) {
+      document.addEventListener('touchstart', handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('touchstart', handleClickOutside);
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [isDesktop, isExpanded, handleClickOutside]);
 
   // Detect scroll position and update active section
   useEffect(() => {
@@ -53,58 +94,60 @@ export function Sidebar() {
     }
     
     setActiveSection(sectionId);
-    if (window.innerWidth < 768) {
+    // Close on mobile/tablet or touch devices
+    if (!isDesktop || isTouchDevice) {
       setIsExpanded(false);
     }
   };
 
   return (
     <>
-      {/* Mobile Toggle Button */}
-      <motion.button
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="fixed top-4 left-4 z-[9998] p-3 md:hidden bg-[var(--cyber-dark)] backdrop-blur-md border border-[var(--cyber-orange)]/30 rounded-lg hover:border-[var(--cyber-orange)] transition-colors"
-        aria-label={isExpanded ? "Close menu" : "Open menu"}
-      >
-        {isExpanded ? (
-          <X className="w-5 h-5 text-[var(--cyber-orange)]" />
-        ) : (
-          <Menu className="w-5 h-5 text-[var(--cyber-orange)]" />
-        )}
-      </motion.button>
+      {/* Mobile/Tablet Toggle Button - show when not desktop */}
+      {mounted && !isDesktop && (
+        <motion.button
+          id="sidebar-toggle"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="fixed top-4 left-4 z-[9998] p-3 bg-[var(--cyber-dark)] backdrop-blur-md border border-[var(--cyber-orange)]/30 rounded-lg hover:border-[var(--cyber-orange)] transition-colors"
+          aria-label={isExpanded ? "Close menu" : "Open menu"}
+        >
+          {isExpanded ? (
+            <X className="w-5 h-5 text-[var(--cyber-orange)]" />
+          ) : (
+            <Menu className="w-5 h-5 text-[var(--cyber-orange)]" />
+          )}
+        </motion.button>
+      )}
 
-      {/* Overlay for mobile */}
-      {isExpanded && (
+      {/* Overlay for mobile/tablet */}
+      {mounted && !isDesktop && isExpanded && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setIsExpanded(false)}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9996] md:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9996]"
         />
       )}
 
       {/* Sidebar */}
       <motion.aside
-        initial={{ x: -100, opacity: 0 }}
-        animate={{ 
-          x: 0, 
+        id="sidebar-main"
+        initial={false}
+        animate={mounted ? { 
+          x: isDesktop ? 0 : (isExpanded ? 0 : -240),
           opacity: 1,
           width: isExpanded ? 240 : 72,
-        }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        onMouseEnter={() => window.innerWidth >= 768 && setIsExpanded(true)}
-        onMouseLeave={() => window.innerWidth >= 768 && setIsExpanded(false)}
+        } : undefined}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        onMouseEnter={() => mounted && !isTouchDevice && isDesktop && setIsExpanded(true)}
+        onMouseLeave={() => mounted && !isTouchDevice && isDesktop && setIsExpanded(false)}
         className={`fixed left-0 top-0 h-screen z-[9997] flex flex-col
           bg-[var(--cyber-dark)] backdrop-blur-md
-          border-r border-[var(--cyber-orange)]/20
-          transition-all duration-300 ease-out
-          ${isExpanded ? "w-60" : "w-[72px]"}
-          ${isExpanded ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-        `}
+          border-r border-[var(--cyber-orange)]/20 w-[72px]
+          ${!mounted ? "-translate-x-full xl:translate-x-0" : ""}`}
       >
         {/* Logo */}
         <div className="flex items-center h-20 px-4 border-b border-[var(--cyber-orange)]/20">
@@ -235,62 +278,71 @@ export function Sidebar() {
           <div className="space-y-2">
             {/* CTA Button - Border only */}
             <motion.a
-            href="#projects"
-            onClick={(e) => handleNavClick(e, "#projects")}
-            whileHover={{ 
-              scale: 1.02,
-              boxShadow: "0 0 20px rgba(255, 107, 0, 0.3)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            className={`flex items-center justify-center py-3 rounded-lg
-              bg-transparent border-2 border-[var(--cyber-orange)] text-[var(--cyber-orange)] 
-              font-[family-name:var(--font-display)] font-bold
-              transition-all duration-300 hover:bg-[var(--cyber-orange)]/10
-              ${isExpanded ? "gap-3 px-4" : "gap-0 px-3"}
-            `}
-          >
-            <FolderKanban className="w-5 h-5 flex-shrink-0" />
-            <motion.span
-              animate={{ 
-                opacity: isExpanded ? 1 : 0, 
-                width: isExpanded ? "auto" : 0,
+              href="#projects"
+              onClick={(e) => handleNavClick(e, "#projects")}
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 0 20px rgba(255, 107, 0, 0.3)",
               }}
-              transition={{ duration: 0.2 }}
-              className="text-sm whitespace-nowrap overflow-hidden"
+              whileTap={{ scale: 0.98 }}
+              animate={{ 
+                paddingLeft: isExpanded ? 16 : 12,
+                paddingRight: isExpanded ? 16 : 12,
+                gap: isExpanded ? 12 : 0,
+              }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="flex items-center justify-center py-3 rounded-lg
+                bg-transparent border-2 border-[var(--cyber-orange)] text-[var(--cyber-orange)] 
+                font-[family-name:var(--font-display)] font-bold
+                transition-colors duration-300 hover:bg-[var(--cyber-orange)]/10"
             >
-              View Work
-            </motion.span>
-          </motion.a>
+              <FolderKanban className="w-5 h-5 flex-shrink-0" />
+              <motion.span
+                animate={{ 
+                  opacity: isExpanded ? 1 : 0,
+                  width: isExpanded ? "auto" : 0,
+                  marginLeft: isExpanded ? 0 : 0,
+                }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="text-sm whitespace-nowrap overflow-hidden"
+              >
+                View Work
+              </motion.span>
+            </motion.a>
 
-          {/* Resume Download Button */}
-          <motion.a
-            href="/resume.pdf"
-            download="Aldi_Cahya_Ramadhan_Resume.pdf"
-            aria-label="Download Resume PDF"
-            whileHover={{ 
-              scale: 1.02,
-              boxShadow: "0 0 20px rgba(255, 107, 0, 0.3)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            className={`flex items-center justify-center py-3 rounded-lg
-              bg-transparent border border-[var(--cyber-orange)]/50 text-[var(--cyber-muted)]
-              font-mono text-sm
-              transition-all duration-300 hover:border-[var(--cyber-orange)] hover:text-[var(--cyber-orange)] hover:bg-[var(--cyber-orange)]/5
-              ${isExpanded ? "gap-3 px-4" : "gap-0 px-3"}
-            `}
-          >
-            <Download className="w-4 h-4 flex-shrink-0" />
-            <motion.span
-              animate={{ 
-                opacity: isExpanded ? 1 : 0, 
-                width: isExpanded ? "auto" : 0,
+            {/* Resume Download Button */}
+            <motion.a
+              href="/resume.pdf"
+              download="Aldi_Cahya_Ramadhan_Resume.pdf"
+              aria-label="Download Resume PDF"
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 0 20px rgba(255, 107, 0, 0.3)",
               }}
-              transition={{ duration: 0.2 }}
-              className="whitespace-nowrap overflow-hidden"
+              whileTap={{ scale: 0.98 }}
+              animate={{ 
+                paddingLeft: isExpanded ? 16 : 12,
+                paddingRight: isExpanded ? 16 : 12,
+                gap: isExpanded ? 12 : 0,
+              }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="flex items-center justify-center py-3 rounded-lg
+                bg-transparent border border-[var(--cyber-orange)]/50 text-[var(--cyber-muted)]
+                font-mono text-sm
+                transition-colors duration-300 hover:border-[var(--cyber-orange)] hover:text-[var(--cyber-orange)] hover:bg-[var(--cyber-orange)]/5"
             >
-              Resume
-            </motion.span>
-          </motion.a>
+              <Download className="w-4 h-4 flex-shrink-0" />
+              <motion.span
+                animate={{ 
+                  opacity: isExpanded ? 1 : 0,
+                  width: isExpanded ? "auto" : 0,
+                }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="whitespace-nowrap overflow-hidden"
+              >
+                Resume
+              </motion.span>
+            </motion.a>
           </div>
         </div>
 

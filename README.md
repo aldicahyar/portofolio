@@ -226,8 +226,8 @@ MIT
 ## Author
 
 **Aldi Cahya Ramadhan**
-- Website: https://aldicahyar.dev
-- GitHub: https://github.com/aldicahyar
+- Website: [aldicahyar.vercel.app](https://aldicahyar.vercel.app/)
+- GitHub: [@aldicahyar](https://github.com/aldicahyar)
 
 ## Acknowledgments
 

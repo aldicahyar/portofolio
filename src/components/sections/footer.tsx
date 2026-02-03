@@ -143,7 +143,7 @@ export function Footer() {
               </span>
               <span>SYSTEM.ONLINE</span>
               <span className="mx-1">|</span>
-              <span className="text-[var(--cyber-orange)]">v1.0.0</span>
+              <span className="text-[var(--cyber-orange)]">v0.1.1</span>
             </p>
           </motion.div>
         </div>

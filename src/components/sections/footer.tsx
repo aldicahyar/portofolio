@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Terminal, Github, Linkedin, Mail, Heart, ArrowUpRight } from "lucide-react";
 import { BackToTopGlitch } from "@/components/ui/back-to-top-glitch";
 import { useLanguage } from "@/context/language-context";
+import packageJson from "../../../package.json";
 
 const quickLinks = [
   { label: "Home", href: "#home", key: "home" },
@@ -143,7 +144,7 @@ export function Footer() {
               </span>
               <span>SYSTEM.ONLINE</span>
               <span className="mx-1">|</span>
-              <span className="text-[var(--cyber-orange)]">v0.1.1</span>
+              <span className="text-[var(--cyber-orange)]">v{packageJson.version}</span>
             </p>
           </motion.div>
         </div>

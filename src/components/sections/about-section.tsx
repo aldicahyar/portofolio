@@ -92,7 +92,7 @@ export function AboutSection() {
                   <p>
                     <span className="text-purple-400">role</span>
                     <span className="text-[var(--cyber-muted)]">:</span>{" "}
-                    <span className="text-green-400">{`"${t("hero.role")}"`}</span>
+                    <span className="text-green-400">{`"${t("Backend Developer")}"`}</span>
                     <span className="text-[var(--cyber-muted)]">,</span>
                   </p>
                   <p>

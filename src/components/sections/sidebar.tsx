@@ -141,7 +141,7 @@ export function Sidebar() {
           opacity: 1,
           width: isExpanded ? 240 : 72,
         } : undefined}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
         onMouseEnter={() => mounted && !isTouchDevice && isDesktop && setIsExpanded(true)}
         onMouseLeave={() => mounted && !isTouchDevice && isDesktop && setIsExpanded(false)}
         className={`fixed left-0 top-0 h-screen z-[9997] flex flex-col
